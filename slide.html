@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Image Slider</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            position: relative;
+            margin:0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .slide {
+            display: none;
+            animation: fade 0.8s ease-in-out;
+        }
+
+        @keyframes fade {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slide-content {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 20px;
+            color: white;
+        }
+
+        .slide-title {
+            font-size: 24px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .slide-description {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .slider-button:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        #button-prev {
+            left: 20px;
+        }
+
+        #button-next {
+            right: 20px;
+        }
+
+        .dots-container {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .dot:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+            transform: scale(1.2);
+        }
+
+        .dot.activeDot {
+            background-color: #fff;
+            transform: scale(1.2);
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 15px;
+        }
+
+        .control-button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .control-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .slider-info {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .slider-info h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .slider-info p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .slide img {
+                height: 400px;
+            }
+            
+            .slider-button {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .slide-title {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slide img {
+                height: 300px;
+            }
+            
+            .slider-button {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+            
+            .slide-content {
+                padding: 15px;
+            }
+            
+            .slide-title {
+                font-size: 18px;
+            }
+            
+            .slide-description {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+       <div class="container">
+        <div class="slide active">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb" alt="Mountain Landscape">
+            <div class="slide-content">
+                <h3 class="slide-title">Mountain Landscape</h3>
+                <p class="slide-description">Beautiful mountain view with a lake reflection</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b" alt="Ocean Sunset">
+            <div class="slide-content">
+                <h3 class="slide-title">Ocean Sunset</h3>
+                <p class="slide-description">Stunning sunset over the ocean horizon</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5" alt="Forest Pathway">
+            <div class="slide-content">
+                <h3 class="slide-title">Forest Pathway</h3>
+                <p class="slide-description">Mystical forest pathway with sunlight filtering through trees</p>
+            </div>
+        </div>
+
+        <div id="button-prev" class="slider-button">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <div id="button-next" class="slider-button">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+        
+        <div class="dots-container">
+            <div class="dot activeDot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <div class="slider-controls">
+        <button class="control-button" id="play-pause">
+            <i class="fas fa-pause"></i> Pause
+        </button>
+        <button class="control-button" id="shuffle">
+            <i class="fas fa-random"></i> Shuffle
+        </button>
+    </div>
+
+    <script>
+        // DOM Elements
+        const slides = document.getElementsByClassName("slide");
+        const navlinks = document.getElementsByClassName("dot");
+        const playPauseBtn = document.getElementById("play-pause");
+        const shuffleBtn = document.getElementById("shuffle");
+        
+        // Variables
+        let currentSlide = 0;
+        let slideInterval;
+        let isPlaying = true;
+
+        // Initialize the slider
+        function initSlider() {
+            startSlideShow();
+            updateSlideContent();
+        }
+
+        // Change slide function
+        function changeSlide(moveTo) {
+            if (moveTo >= slides.length) {
+                moveTo = 0;
+            }
+            if (moveTo < 0) {
+                moveTo = slides.length - 1;
+            }
+
+            slides[currentSlide].classList.remove("active");
+            navlinks[currentSlide].classList.remove("activeDot");
+            slides[moveTo].classList.add("active");
+            navlinks[moveTo].classList.add("activeDot");
+            
+            currentSlide = moveTo;
+            updateSlideContent();
+        }
+
+        // Next slide function
+        function nextSlide() {
+            changeSlide(currentSlide + 1);
+        }
+
+        // Previous slide function
+        function prevSlide() {
+            changeSlide(currentSlide - 1);
+        }
+
+        // Start slideshow
+        function startSlideShow() {
+            slideInterval = setInterval(nextSlide, 5000);
+            isPlaying = true;
+            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+        }
+
+        // Pause slideshow
+        function pauseSlideShow() {
+            clearInterval(slideInterval);
+            isPlaying = false;
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i> Play';
+        }
+
+        // Toggle play/pause
+        function togglePlayPause() {
+            if (isPlaying) {
+                pauseSlideShow();
+            } else {
+                startSlideShow();
+            }
+        }
+
+        // Shuffle slides
+        function shuffleSlides() {
+            pauseSlideShow();
+            const randomIndex = Math.floor(Math.random() * slides.length);
+            changeSlide(randomIndex);
+        }
+
+        // Update slide content (for accessibility)
+        function updateSlideContent() {
+            const activeSlide = slides[currentSlide];
+            const title = activeSlide.querySelector('.slide-title').textContent;
+            const description = activeSlide.querySelector('.slide-description').textContent;
+            
+            // Update aria-labels for screen readers
+            document.querySelector('.container').setAttribute('aria-label', `Current slide: ${title}. ${description}`);
+        }
+
+        // Event listeners
+        document.getElementById("button-next").addEventListener("click", nextSlide);
+        document.getElementById("button-prev").addEventListener("click", prevSlide);
+        playPauseBtn.addEventListener("click", togglePlayPause);
+        shuffleBtn.addEventListener("click", shuffleSlides);
+
+        // Add event listeners to dots
+        document.querySelectorAll(".dot").forEach((bullet, bulletIndex) => {
+            bullet.addEventListener("click", () => {
+                if (currentSlide !== bulletIndex) {
+                    pauseSlideShow();
+                    changeSlide(bulletIndex);
+                }
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === ' ') {
+                togglePlayPause();
+            }
+        });
+
+        // Initialize the slider
+        initSlider();
+    </script>
+</body>
+</html>
